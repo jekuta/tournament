@@ -7,6 +7,6 @@ RSpec.feature "CreateCompetitors", type: :feature do
     fill_in "Name", with: 'Manchester United'
     click_button "Create Competitor"
 
-    expect(page).to have_text('Competitor "Manchester United" has been created')
+    expect(page).to have_text("Competitor 'Manchester United' has been created")
   end
 end
