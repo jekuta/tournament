@@ -1,7 +1,7 @@
 require 'dry-struct'
 
 module Command
-  class CreatePlayer < Dry::Struct
+  class AddPlayer < Dry::Struct
     include Dry::Types.module
 
     attribute :competition_id, Strict::String

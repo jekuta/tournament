@@ -1,5 +1,5 @@
 module CommandHandler
-  class CreatePlayer
+  class AddPlayer
     def call(command)
       with_aggregate(Aggregate::Competition, command.aggregate_id) do |competition|
         competition.add_player(id: command.id, name: command.name)

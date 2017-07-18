@@ -8,7 +8,7 @@ module Command
 
     def handler_for(command)
       {
-        Command::CreatePlayer => CommandHandler::CreatePlayer.new
+        Command::AddPlayer => CommandHandler::AddPlayer.new
       }.fetch(command.class)
     end
   end

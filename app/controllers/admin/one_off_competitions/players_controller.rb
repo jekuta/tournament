@@ -6,7 +6,7 @@ module Admin
       def create
         player_id = SecureRandom.uuid
 
-        cmd = Command::CreatePlayer.new(
+        cmd = Command::AddPlayer.new(
           id: player_id,
           name: player_params.fetch(:name),
           competition_id: competition_id

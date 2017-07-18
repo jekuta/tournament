@@ -13,11 +13,11 @@ RSpec.feature 'CreateOneOffCompetition', type: :feature do
     click_button 'Add Player'
 
     expect(page).to have_text("1. #{manchester}")
-    #
-    # fill_in 'Name', with: real
-    # click_button 'Add Player'
-    #
-    # expect(page).to have_text("2. #{real}")
+
+    fill_in 'Name', with: real
+    click_button 'Add Player'
+
+    expect(page).to have_text("2. #{real}")
     #
     # click_button('Start competition')
     #
