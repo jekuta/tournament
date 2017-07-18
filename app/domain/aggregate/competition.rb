@@ -6,7 +6,7 @@ module Aggregate
 
     def initialize(id)
       @id = id
-      @state = :draft
+      @state = :created
       @players = []
     end
 
@@ -15,12 +15,16 @@ module Aggregate
       apply Events::PlayerAdded.new(data: { player_id: id, player_name: name, competition_id: id })
     end
 
+    def start
+      apply Events::CompetitionStarted.new(data: { competition_id: id})
+    end
+
     private
 
     attr_writer :state
 
     def apply_competition_started(event)
-      state = :started
+      @state = :started
     end
 
     def apply_player_added(event)

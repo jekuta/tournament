@@ -9,6 +9,8 @@ RSpec.feature 'CreateOneOffCompetition', type: :feature do
 
     click_button('Create One-off Competition')
 
+    expect(page).to have_text('created')
+
     fill_in 'Name', with: manchester
     click_button 'Add Player'
 
@@ -18,9 +20,11 @@ RSpec.feature 'CreateOneOffCompetition', type: :feature do
     click_button 'Add Player'
 
     expect(page).to have_text("2. #{real}")
-    #
-    # click_button('Start competition')
-    #
+
+    click_button('Start Competition')
+
+    expect(page).to have_text('started')
+
     # fill_in 'Player', with: manchester
     # fill_in 'Points', with: 2
     # click_button 'Add'

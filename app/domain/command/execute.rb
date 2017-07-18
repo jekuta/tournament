@@ -8,7 +8,8 @@ module Command
 
     def handler_for(command)
       {
-        Command::AddPlayer => CommandHandler::AddPlayer.new
+        Command::AddPlayer => CommandHandler::AddPlayer.new,
+        Command::StartCompetition => CommandHandler::StartCompetition.new
       }.fetch(command.class)
     end
   end

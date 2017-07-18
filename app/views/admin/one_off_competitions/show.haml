@@ -1,3 +1,6 @@
+%h1 Competition #{competition.id}
+= "#{competition.state}"
+
 - competition.players.each_with_index do |player, i|
   = "#{i + 1}. #{player[:name]}"
 
@@ -6,3 +9,5 @@
     = label_tag(:competitor_name, 'Name')
     = text_field_tag('competitor[name]')
     = submit_tag('Add Player')
+
+= button_to 'Start Competition', action: :create, controller: 'admin/one_off_competitions/states', one_off_competition_id: competition.id
