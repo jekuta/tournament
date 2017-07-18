@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :admin do
+    resources :tournaments, only: [:index]
     resources :competitors, only: [:index, :new, :create]
+    resources :one_off_competitions, only: [:create, :show] do
+      resources :players, only: [:create], module: :one_off_competitions
+    end
   end
 end

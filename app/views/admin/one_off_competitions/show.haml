@@ -1,0 +1,8 @@
+- competition.players.each_with_index do |player, i|
+  = "#{i + 1}. #{player[:name]}"
+
+.form
+  = form_tag(admin_one_off_competition_players_path(competition.id), method: :create, remote: true) do
+    = label_tag(:competitor_name, 'Name')
+    = text_field_tag('competitor[name]')
+    = submit_tag('Add Player')
