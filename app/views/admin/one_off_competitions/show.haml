@@ -2,12 +2,24 @@
 = "#{competition.state}"
 
 - competition.players.each_with_index do |player, i|
-  = "#{i + 1}. #{player[:name]}"
+  = "#{i + 1}. #{player.name}"
 
 .form
-  = form_tag(admin_one_off_competition_players_path(competition.id), method: :create, remote: true) do
+  = form_tag(admin_one_off_competition_players_path(competition.id), method: :create) do
     = label_tag(:competitor_name, 'Name')
     = text_field_tag('competitor[name]')
     = submit_tag('Add Player')
 
 = button_to 'Start Competition', action: :create, controller: 'admin/one_off_competitions/states', one_off_competition_id: competition.id
+
+- if competition.started?
+  .form
+    = form_tag(admin_one_off_competition_points_path(competition.id), method: :create) do
+      = label_tag(:player, 'Player')
+      = select_tag(:player, options_from_collection_for_select(competition.players, :id, :name))
+      = label_tag(:points, 'Points')
+      = text_field_tag('points')
+      = submit_tag('Add')
+
+  - competition.players.each do |player|
+    = "#{player.name}: #{pluralize(player.points, 'point')}"

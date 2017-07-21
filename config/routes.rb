@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :one_off_competitions, only: [:create, :show] do
       resources :players, only: [:create], module: :one_off_competitions
       resources :states, only: [:create], module: :one_off_competitions
+      resources :points, only: [:create], module: :one_off_competitions
     end
   end
 end

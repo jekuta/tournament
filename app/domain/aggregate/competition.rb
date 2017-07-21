@@ -19,6 +19,20 @@ module Aggregate
       apply Events::CompetitionStarted.new(data: { competition_id: id})
     end
 
+    def started?
+      state == :started
+    end
+
+    def add_points(player_id:, points:)
+      apply Events::PlayerScoresPoints.new(
+        data: {
+          competition_id: id,
+          player_id: player_id,
+          points: points
+        }
+      )
+    end
+
     private
 
     attr_writer :state
@@ -30,7 +44,18 @@ module Aggregate
     def apply_player_added(event)
       player_id = event.data.fetch(:player_id)
       player_name = event.data.fetch(:player_name)
-      @players << {id: player_id, name: player_name}
+      @players << Entities::Player.new(id: player_id, name: player_name)
+    end
+
+    def apply_player_scores_points(event)
+      player = find_player(event.data.fetch(:player_id))
+      points = event.data.fetch(:points)
+
+      player.add_points(points)
+    end
+
+    def find_player(id)
+      players.detect { |player| player.id == id }
     end
   end
 end
