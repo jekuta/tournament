@@ -45,6 +45,10 @@ module Aggregate
       players.max { |player| player.points }
     end
 
+    def players_sorted_by_points
+      players.sort_by { |player| -player.points }
+    end
+
     private
 
     attr_writer :state

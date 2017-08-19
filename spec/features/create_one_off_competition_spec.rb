@@ -14,12 +14,12 @@ RSpec.feature 'CreateOneOffCompetition', type: :feature do
     fill_in 'Name', with: manchester
     click_button 'Add Player'
 
-    expect(page).to have_text("1. #{manchester}")
+    expect(page).to have_text("#{manchester} 0 points")
 
     fill_in 'Name', with: real
     click_button 'Add Player'
 
-    expect(page).to have_text("2. #{real}")
+    expect(page).to have_text("#{real} 0 points")
 
     click_button('Start Competition')
 
@@ -49,6 +49,6 @@ RSpec.feature 'CreateOneOffCompetition', type: :feature do
     click_button 'Finish Competition'
 
     expect(page).to have_text("#{real} wins")
-    # expect(page).to have_text("#{manchester} 1 - 3 #{real}")
+    expect(page).to have_text("#{real} 3 - 2 #{manchester}")
   end
 end

@@ -1,20 +1,22 @@
 %h1 Competition #{competition.id}
-= "#{competition.state}"
+#state= "#{competition.state}"
 
-- competition.players.each_with_index do |player, i|
-  = "#{i + 1}. #{player.name}"
+%ol
+  - competition.players.each do |player|
+    %li= "#{player.name} #{player.points} points"
 
-.form
-  = form_tag(admin_one_off_competition_players_path(competition.id), method: :create) do
-    = label_tag(:competitor_name, 'Name')
-    = text_field_tag('competitor[name]')
-    = submit_tag('Add Player')
+- unless competition.started? || competition.finished?
+  #add_player.form
+    = form_tag(admin_one_off_competition_players_path(competition.id), method: :create) do
+      = label_tag(:competitor_name, 'Name')
+      = text_field_tag('competitor[name]')
+      = submit_tag('Add Player')
 
-- unless competition.started?
+- unless competition.started? || competition.finished?
   = button_to 'Start Competition', admin_one_off_competition_state_path(competition.id), method: :post
 
 - if competition.started?
-  .form
+  #add_points.form
     = form_tag(admin_one_off_competition_points_path(competition.id), method: :create) do
       = label_tag(:player, 'Player')
       = select_tag(:player, options_from_collection_for_select(competition.players, :id, :name))
@@ -23,9 +25,13 @@
       = submit_tag('Add')
 
   - competition.players.each do |player|
-    = "#{player.name}: #{pluralize(player.points, 'point')}"
+    #score= "#{player.name}: #{pluralize(player.points, 'point')}"
 
   = button_to 'Finish Competition', admin_one_off_competition_state_path(competition.id), method: :delete
 
 - if competition.finished?
-  = "#{competition.winning_player.name} wins"
+  #winner= "#{competition.winning_player.name} wins"
+- if competition.players.size == 2
+  - first = competition.players_sorted_by_points.first
+  - second = competition.players_sorted_by_points.last
+  #final_score= "#{first.name} #{first.points} - #{second.points} #{second.name}"
