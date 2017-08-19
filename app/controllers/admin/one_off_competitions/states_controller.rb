@@ -11,6 +11,14 @@ module Admin
         redirect_to admin_one_off_competition_path(id: competition_id)
       end
 
+      def destroy
+        cmd = Command::FinishCompetition.new(competition_id: competition_id)
+
+        execute(cmd)
+
+        redirect_to admin_one_off_competition_path(id: competition_id)
+      end
+
       private
 
       def competition_id

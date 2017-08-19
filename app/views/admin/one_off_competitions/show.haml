@@ -10,7 +10,8 @@
     = text_field_tag('competitor[name]')
     = submit_tag('Add Player')
 
-= button_to 'Start Competition', action: :create, controller: 'admin/one_off_competitions/states', one_off_competition_id: competition.id
+- unless competition.started?
+  = button_to 'Start Competition', admin_one_off_competition_state_path(competition.id), method: :post
 
 - if competition.started?
   .form
@@ -23,3 +24,8 @@
 
   - competition.players.each do |player|
     = "#{player.name}: #{pluralize(player.points, 'point')}"
+
+  = button_to 'Finish Competition', admin_one_off_competition_state_path(competition.id), method: :delete
+
+- if competition.finished?
+  = "#{competition.winning_player.name} wins"

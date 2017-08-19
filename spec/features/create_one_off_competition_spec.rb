@@ -46,9 +46,9 @@ RSpec.feature 'CreateOneOffCompetition', type: :feature do
     expect(page).to have_text("#{real}: 3 points")
     # expect(page).to have_text("#{real} scored 3 points")
     #
-    # click_button 'Finish competition'
-    #
-    # expect(page).to have_text("#{real} wins")
+    click_button 'Finish Competition'
+
+    expect(page).to have_text("#{real} wins")
     # expect(page).to have_text("#{manchester} 1 - 3 #{real}")
   end
 end

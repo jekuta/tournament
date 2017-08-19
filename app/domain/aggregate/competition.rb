@@ -23,6 +23,14 @@ module Aggregate
       state == :started
     end
 
+    def finish
+      apply Events::CompetitionFinished.new(data: { competition_id: id})
+    end
+
+    def finished?
+      state == :finished
+    end
+
     def add_points(player_id:, points:)
       apply Events::PlayerScoresPoints.new(
         data: {
@@ -33,12 +41,20 @@ module Aggregate
       )
     end
 
+    def winning_player
+      players.max { |player| player.points }
+    end
+
     private
 
     attr_writer :state
 
     def apply_competition_started(event)
       @state = :started
+    end
+
+    def apply_competition_finished(event)
+      @state = :finished
     end
 
     def apply_player_added(event)
