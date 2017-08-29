@@ -1,0 +1,14 @@
+language: ruby
+rvm:
+- 2.4
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database tournament_test;' -U postgres
+deploy:
+  provider: heroku
+  app: quiet-lowlands-17907
+  api_key:
+    secure: krTRpnSyWLJyezU1apT0HX8rWSmtc1L8n4W1EKHn7FgqQ9D6WaefDdY+qeUYypgfl/+vnvI0mL6yjMaWfF/iXgKWrw2Wgc24ZLThjsuSb16SFfOCqhObycxxVRJvQ6vA0ZmEJmakD7tWyTnAD+aNvdoeGbNfGSF4sfBIKbQ0uj+KH+JF2GAAjARmgEYd67BukI26RfWaZ0XfOf/urZytYZYCoMCtkki0AVFT4eL3iJGGeiM+U9pfWt6qeSIclUEx1+6VpzIOurjWM3nGjWxHNrzfyZD1txRfMPFu90up2ya5GXHzeZ3eNTOE9HDqVcQzFtuz2nOw/grPQ27deOrSXi67u92FLLzTV4oHJMmRT9k+GjwXXhT0uv2GC9QEjvN3S1f1IZBpw3eBiKuSmCIV6rc7egM1F2IY93TsIWY3KHCZr0PpzkDTc86aoz/oUujxcppokJjh2tF9nvw3h3XwZuYyE8GQyAAzRfZ6Wd1KNz91DBJvrNPsCOJq154sSkZhfgfgFU2GLEe0oLxXcc9FxIse/QYmUn2ItjRmOh9jK+AEW6PHGxJ9BagtrS0Ex4rZz+onKK/nNfUevnTHPC2oNNAbe1vmhLspyUQdZttFMC7QRrovT3jhB74myaxkyseunatesb9yDPf9zK+9YRotDtYPLPzxh80T61YYf4k9/Jo=
+  run:
+    - "rake db:migrate"
