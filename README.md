@@ -1,7 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Codacy
+Badge](https://api.codacy.com/project/badge/Grade/eebc72fa19ad47ae89ca224e6da29116)](https://www.codacy.com/app/jekuta/tournament?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jekuta/tournament&amp;utm_campaign=Badge_Grade)
+
+
 
 Things you may want to cover:
 
