@@ -1,37 +1,50 @@
-%h1 Competition #{competition.id}
-#state= "#{competition.state}"
+.row
+  .col
+    .form-segment
+      %h1 Competition
+      #state= "Competition #{competition.state}"
 
-%ol
-  - competition.players.each do |player|
-    %li= "#{player.name} #{player.points} points"
+.row
+  .col
+    - unless competition.players.size.zero?
+      .players-list.rounded.border
+        .form-segment
+          %h3 Players
+          %ol
+            - competition.players.each do |player|
+              %li#score= "#{player.name}: #{pluralize(player.points, 'point')}"
 
-- unless competition.started? || competition.finished?
-  #add_player.form
-    = form_tag(admin_one_off_competition_players_path(competition.id), method: :create) do
-      = label_tag(:competitor_name, 'Name')
-      = text_field_tag('competitor[name]')
-      = submit_tag('Add Player')
+    - unless competition.started? || competition.finished?
+      #add-player.form.form-segment
+        = form_tag(admin_one_off_competition_players_path(competition.id), method: :create) do
+          .input-group
+            = text_field_tag('competitor[name]', nil, class: 'form-control', placeholder: 'Name')
+            .input-group-btn
+              = submit_tag('Add Player', class: 'btn btn-secondary')
 
-- unless competition.started? || competition.finished?
-  = button_to 'Start Competition', admin_one_off_competition_state_path(competition.id), method: :post
+    - unless competition.started? || competition.finished?
+      .form-segment
+        = button_to 'Start Competition', admin_one_off_competition_state_path(competition.id), method: :post, class: 'btn btn-primary'
 
-- if competition.started?
-  #add_points.form
-    = form_tag(admin_one_off_competition_points_path(competition.id), method: :create) do
-      = label_tag(:player, 'Player')
-      = select_tag(:player, options_from_collection_for_select(competition.players, :id, :name))
-      = label_tag(:points, 'Points')
-      = text_field_tag('points')
-      = submit_tag('Add')
+    - if competition.started?
+      .players-list.rounded.border
+        #add-points.form.form-segment
+          = form_tag(admin_one_off_competition_points_path(competition.id), method: :create) do
+            .input-group
+              .input-group-btn
+                = submit_tag('Add', class: 'btn btn-secondary')
+              = select_tag(:player, options_from_collection_for_select(competition.players, :id, :name), class: 'form-control')
+              = text_field_tag('points', nil, class: 'form-control', placeholder: 'points')
 
-  - competition.players.each do |player|
-    #score= "#{player.name}: #{pluralize(player.points, 'point')}"
+      .form-segment
+        = button_to 'Finish Competition', admin_one_off_competition_state_path(competition.id), method: :delete, class: 'btn btn-primary'
 
-  = button_to 'Finish Competition', admin_one_off_competition_state_path(competition.id), method: :delete
+    .form-segment
+      - if competition.finished?
+        #winner= "#{competition.winning_player.name} wins"
+        - if competition.players.size == 2
+          - first = competition.players_sorted_by_points.first
+          - second = competition.players_sorted_by_points.last
+          #final-score= "#{first.name} #{first.points} - #{second.points} #{second.name}"
 
-- if competition.finished?
-  #winner= "#{competition.winning_player.name} wins"
-- if competition.players.size == 2
-  - first = competition.players_sorted_by_points.first
-  - second = competition.players_sorted_by_points.last
-  #final_score= "#{first.name} #{first.points} - #{second.points} #{second.name}"
+  .col
