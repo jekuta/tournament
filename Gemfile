@@ -41,6 +41,7 @@ gem 'rails_event_store'
 gem 'dry-struct'
 
 gem 'coveralls', require: false
+gem 'twitter-bootstrap-rails'
 
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver
