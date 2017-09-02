@@ -41,8 +41,8 @@ gem 'rails_event_store'
 gem 'dry-struct'
 
 gem 'coveralls', require: false
-gem 'twitter-bootstrap-rails'
-
+gem 'bootstrap', '~> 4.0.0.beta'
+gem 'jquery-rails'
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
