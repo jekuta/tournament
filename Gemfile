@@ -40,7 +40,6 @@ gem 'haml-rails'
 gem 'rails_event_store'
 gem 'dry-struct'
 
-gem 'codecov', require: false, group: :test
 gem 'coveralls', require: false
 
 group :development, :test do
