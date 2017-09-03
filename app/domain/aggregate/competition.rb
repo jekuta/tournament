@@ -1,4 +1,6 @@
 module Aggregate
+  NoPlayersSelected = Class.new(StandardError)
+
   class Competition
     attr_reader :id, :state, :players
 
@@ -16,7 +18,12 @@ module Aggregate
     end
 
     def start
+      raise NoPlayersSelected unless players.any?
       apply Events::CompetitionStarted.new(data: { competition_id: id})
+    end
+
+    def created?
+      state == :created
     end
 
     def started?

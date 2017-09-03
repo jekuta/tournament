@@ -22,7 +22,7 @@
             .input-group-btn
               = submit_tag('Add Player', class: 'btn btn-secondary')
 
-    - unless competition.started? || competition.finished?
+    - if competition.created? && competition.players.any?
       .form-segment
         = button_to 'Start Competition', admin_one_off_competition_state_path(competition.id), method: :post, class: 'btn btn-primary'
 
